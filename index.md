@@ -1,1 +1,0 @@
-# Welcome to Chris Guo's homepage
