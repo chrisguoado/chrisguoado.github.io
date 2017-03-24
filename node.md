@@ -2,10 +2,10 @@ Node.js
 =======
 * [Node for Java Developers](https://node.university/blog/502765/node-for-java-devs)
 * [npmjs.com](https://www.npmjs.com/)
-* [install | npm Documentation](https://docs.npmjs.com/cli/install)
-* [Overview of Blocking vs Non-Blocking | Node.js](https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/)
-* [package.json | npm Documentation](https://docs.npmjs.com/files/package.json)
-* [Debugging - Getting Started | Node.js](https://nodejs.org/en/docs/guides/debugging_getting_started/)
+* [install · npm Documentation](https://docs.npmjs.com/cli/install)
+* [Overview of Blocking vs Non-Blocking · Node.js](https://nodejs.org/en/docs/guides/blocking-vs-non-blocking/)
+* [package.json · npm Documentation](https://docs.npmjs.com/files/package.json)
+* [Debugging - Getting Started · Node.js](https://nodejs.org/en/docs/guides/debugging_getting_started/)
 * [docker-node/BestPractices.md · nodejs/docker-node](https://github.com/nodejs/docker-node/blob/master/docs/BestPractices.md)
 
 More topics in the [Getting Started Guide](https://nodejs.org/en/docs/guides/debugging_getting_started/)
@@ -67,7 +67,7 @@ DEBUG=myapp:* npm start
 
 Feathers
 --------
-* [Feathers | Instant Realtime and REST APIs with Node.js](http://feathersjs.com/)
+* [Feathers · Instant Realtime and REST APIs with Node.js](http://feathersjs.com/)
 * [Built with Feathers · Feathers Showcase](https://docs.feathersjs.com/why/showcase.html)
 * [Virtual Hosting, HTTPS and sub-apps](https://docs.feathersjs.com/middleware/mounting.html)
 
@@ -99,7 +99,7 @@ npm install feathers feathers-rest feathers-memory feathers-swagger body-parser
 Yeoman
 ------
 * [yo - npm](https://www.npmjs.com/package/yo)
-* [Generators | Yeoman](http://yeoman.io/generators/)
+* [Generators · Yeoman](http://yeoman.io/generators/)
 * [yeoman-generator](https://www.npmjs.com/package/yeoman-generator)
 
 ```bash
@@ -125,7 +125,7 @@ bower - npm
 NeDB
 ----
 * [NeDB · The FeathersJS Book](https://docs.feathersjs.com/databases/nedb.html)
-* [NeDB basics | 10 minutes guide of NeDB essentials](http://10minbasics.com/nedb-basics/)
+* [NeDB basics · 10 minutes guide of NeDB essentials](http://10minbasics.com/nedb-basics/)
 * [NeDB: A Lightweight JavaScript Database](http://stackabuse.com/nedb-a-lightweight-javascript-database/)
 
 About the `npm --save` option
