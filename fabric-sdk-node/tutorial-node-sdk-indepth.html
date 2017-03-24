@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>Hyperledger Fabric SDK for node.js Tutorial: node-sdk-indepth</title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+	<link type="text/css" rel="stylesheet" href="styles/sunlight.default.css">
+
+	<link type="text/css" rel="stylesheet" href="styles/site.cosmo.css">
+
+</head>
+
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top ">
+<div class="container">
+	<div class="navbar-header">
+		<a class="navbar-brand" href="index.html">Hyperledger Fabric SDK for node.js</a>
+		<button class="navbar-toggle" type="button" data-toggle="collapse" data-target="#topNavigation">
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+			<span class="icon-bar"></span>
+        </button>
+	</div>
+	<div class="navbar-collapse collapse" id="topNavigation">
+		<ul class="nav navbar-nav">
+			
+			<li class="dropdown">
+				<a href="modules.list.html" class="dropdown-toggle" data-toggle="dropdown">Modules<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="module-api.html">api</a></li><li><a href="module-fabric-ca-client.html">fabric-ca-client</a></li><li><a href="module-fabric-client.html">fabric-client</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="Chain.html">Chain</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="tutorials.list.html" class="dropdown-toggle" data-toggle="dropdown">Tutorials<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="tutorial-app-developer-env-setup.html">app-developer-env-setup</a></li><li><a href="tutorial-index_.html">index</a></li><li><a href="tutorial-node-sdk-guide.html">node-sdk-guide</a></li><li><a href="tutorial-node-sdk-indepth.html">node-sdk-indepth</a></li><li><a href="tutorial-sample-standalone-app.html">sample-standalone-app</a></li><li><a href="tutorial-sample-web-app.html">sample-web-app</a></li>
+				</ul>
+			</li>
+			
+			<li class="dropdown">
+				<a href="global.html" class="dropdown-toggle" data-toggle="dropdown">Global<b class="caret"></b></a>
+				<ul class="dropdown-menu ">
+					<li><a href="global.html">Global</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+        
+            <div class="col-sm-3 col-md-3">
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" name="q" id="search-input">
+                        <div class="input-group-btn">
+                            <button class="btn btn-default" id="search-submit"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        
+	</div>
+
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	
+	<div class="col-md-12">
+	
+		<div id="main">
+			<section class="tutorial-section">
+
+<header>
+    
+
+    <h2>node-sdk-indepth</h2>
+</header>
+
+<article>
+    <h1>Hyperledger fabric Client (HFC) SDK for Node.js</h1><p>The Hyperledger fabric Client (HFC) SDK provides a powerful and easy to use API to interact with a Hyperledger fabric blockchain.</p>
+<p>Below, you'll find the following sections:</p>
+<ul>
+<li><a href="#installing-only-the-sdk">Installing only the SDK</a></li>
+<li><a href="#terminology">Terminology</a></li>
+<li><a href="#hfc-objects">HFC Objects</a></li>
+<li><a href="#pluggability">Pluggability</a></li>
+<li><a href="#chaincode-deployment">Chaincode Deployment</a></li>
+<li><a href="#enabling-tls">Enabling TLS</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
+<h2>Installing only the SDK</h2><p>If you are an experienced node.js developer and already have a blockchain environment set up and running elsewhere, you can set up a client-only environment to run the node.js client by installing the HFC node module as shown below.  This assumes a minimum of npm version 2.11.3 and node.js version 0.12.7 are already installed.</p>
+<ul>
+<li>To install the latest HFC module of Hyperledger fabric</li>
+</ul>
+<pre class="prettyprint source"><code>  npm install hfc</code></pre><h3>Terminology</h3><p>In order to transact on a Hyperledger fabric blockchain, you must first have an identity which has been both <strong>registered</strong> and <strong>enrolled</strong> with Membership Services.  For a topological overview of how the components interact, see <a href="app-overview.md">Application Developer's Overview</a>.</p>
+<p>Think of <strong>registration</strong> as <em>issuing a user invitation</em> to join a blockchain. It consists of adding a new user name (also called an <em>enrollment ID</em>) to the membership service configuration. This can be done programatically with the <code>Member.register</code> method, or by adding the enrollment ID directly to the <a href="https://github.com/hyperledger/fabric/blob/master/membersrvc/membersrvc.yaml">membersrvc.yaml</a> configuration file.</p>
+<p>Think of <strong>enrollment</strong> as <em>accepting a user invitation</em> to join a blockchain. This is always done by the entity that will transact on the blockchain. This can be done programatically via the <code>Member.enroll</code> method.</p>
+<h2>HFC Objects</h2><p>HFC is written in javascript. The source can be found in the <code>fabric-sdk-node/lib</code> directory.  The reference documentation is generated automatically from this source code and can be found  in<code>fabric-sdk-node/docs</code> after building the project.</p>
+<p>The following is a high-level description of the HFC objects (classes and interfaces) to help guide you through the object hierarchy.</p>
+<ul>
+<li><p><strong>Chain</strong></p>
+<p>This is the main top-level class which is the client's representation of a chain. HFC allows you to interact with multiple chains and to share a single <code>KeyValStore</code> and <code>MemberServices</code> object with multiple chains if needed. For each chain, you add one or more <code>Peer</code> objects which represents the endpoint(s) to which HFC connects to transact on the chain.  The second peer is used only if the first peer fails.  The third peer is used only if both the first and second peers fail, etc.</p>
+</li>
+<li><p><strong>KeyValStore</strong></p>
+<p>This is a very simple interface which HFC uses to store and retrieve all persistent data. This data includes private keys, so it is very important to keep this storage secure. The default implementation is a simple file-based version found in the <code>FileKeyValStore</code> class.  If running in a clustered web application, you will need to either ensure that a shared file system is used, or you must implement your own <code>KeyValStore</code> that can be shared among all cluster members.</p>
+</li>
+<li><p><strong>MemberServices</strong></p>
+<p> This is an interface representing Membership Services and is implemented by the <code>MemberServicesImpl</code> class.  It provides security and identity related features such as privacy, unlinkability, and confidentiality. This implementation issues <em>ECerts</em> (enrollment certificates) and <em>TCerts</em> (transaction certificates). ECerts are for enrollment identity and TCerts are for transactions.</p>
+</li>
+<li><p><strong>Member</strong> or <strong>User</strong></p>
+<p>The Member class most often represents an end User who transacts on the chain, but it may also represent other types of members such as peers. From the Member class, you can <em>register</em> and <em>enroll</em> members or users. This interacts with the <code>MemberServices</code> object. You can also deploy, query, and invoke chaincode directly, which interacts with the <code>Peer</code>. The implementation for deploy, query and invoke simply creates a temporary <code>TransactionContext</code> object and delegates the work to it.</p>
+</li>
+<li><p><strong>TransactionContext</strong></p>
+<p>This class implements the bulk of the deploy, invoke, and query logic. It interacts with Membership Services to get a TCert to perform these operations. Note that there is a one-to-one relationship between TCert and TransactionContext.  In other words, a single TransactionContext will always use the same TCert. If you want to issue multiple transactions with the same TCert, then you can get a <code>TransactionContext</code> object from a <code>Member</code> object directly and issue multiple deploy, invoke, or query operations on it. Note however that if you do this, these transactions are linkable, which means someone could tell that they came from the same user, though not know which user. For this reason, you will typically just call deploy, invoke, and query on the Member or User object.</p>
+</li>
+</ul>
+<h2>Pluggability</h2><p>HFC was designed to support two pluggable components:</p>
+<ol>
+<li><p>Pluggable <code>KeyValStore</code> key value store which is used to retrieve and store keys associated with a member. The key value store is used to store sensitive private keys, so care must be taken to properly protect access.</p>
+<p><strong>IMPORTANT NOTE</strong>: The default KeyValStore is file-based.  If multiple instances of a web application run in a cluster, you must provide an implementation of the KeyValStore which is used by all members of the cluster.</p>
+</li>
+<li><p>Pluggable <code>MemberServices</code> which is used to register and enroll members. Member services enables hyperledger to be a permissioned blockchain, providing security services such as anonymity, unlinkability of transactions, and confidentiality</p>
+</li>
+</ol>
+<h2>Chaincode Deployment</h2><h3>'net' mode</h3><p>To have the chaincode deployment succeed in network mode, you must properly set
+up the chaincode project outside of your Hyperledger fabric source tree to include all the <strong>golang</strong> dependencies such that when tarred up and sent to the peer, the peer will be able to build the chain code and then deploy it. The
+following instructions will demonstrate how to properly set up the directory
+structure to deploy <em>chaincode_example02</em> in network mode.</p>
+<p>The chaincode project must be placed under the <code>$GOPATH/src</code> directory. For example, the <a href="https://github.com/hyperledger/fabric/blob/master/examples/chaincode/go/chaincode_example02/chaincode_example02.go">chaincode_example02</a>
+project should be placed under <code>$GOPATH/src/</code> as shown below.</p>
+<pre class="prettyprint source"><code>  mkdir -p $GOPATH/src/github.com/chaincode_example02/
+  cd $GOPATH/src/github.com/chaincode_example02
+  curl GET https://raw.githubusercontent.com/hyperledger/fabric/master/examples/chaincode/go/chaincode_example02/chaincode_example02.go > chaincode_example02.go</code></pre><p>After you have placed your chaincode project under the <code>$GOPATH/src</code>, you will need to vendor the dependencies. From the directory containing your chaincode source, run the following commands:</p>
+<pre class="prettyprint source"><code>  go get -u github.com/kardianos/govendor
+  cd $GOPATH/src/github.com/chaincode_example02
+  govendor init
+  govendor fetch github.com/hyperledger/fabric</code></pre><p>Now, execute <code>go build</code> to verify that all of the chaincode dependencies are
+present.</p>
+<pre class="prettyprint source"><code>  go build</code></pre><h3>'dev' mode</h3><p>For deploying chaincode in development mode see <a href="https://github.com/hyperledger/fabric/blob/master/docs/Setup/Chaincode-setup.md">Writing, Building, and Running Chaincode in a Development Environment</a>. 
+The chaincode must be running and connected to the peer before issuing the <code>deploy()</code> from the Node.js application. The hfc <code>chain</code> object must be set to dev mode.</p>
+<pre class="prettyprint source lang-javascript"><code>chain.setDevMode(true);</code></pre><p>The deploy request must include the <code>chaincodeName</code> that the chaincode registered with the peer. The built-in chaincode example checks an environment variable <code>CORE_CHAINCODE_ID_NAME=mycc</code> when it starts.</p>
+<pre class="prettyprint source lang-json"><code>   var deployRequest = {
+       chaincodeName: 'mycc',
+       fcn: &quot;init&quot;,
+       args: [&quot;a&quot;, &quot;100&quot;, &quot;b&quot;, &quot;200&quot;]
+   };</code></pre><h3>Enabling TLS</h3><p>If you wish to configure TLS with the Membership Services server, the following steps are required:</p>
+<ul>
+<li>Modify <code>$GOPATH/src/github.com/hyperledger/fabric/membersrvc/membersrvc.yaml</code> as follows:</li>
+</ul>
+<pre class="prettyprint source"><code>  server:
+      tls:
+         cert:
+            file: &quot;/var/hyperledger/production/.membersrvc/tlsca.cert&quot;
+         key:
+            file: &quot;/var/hyperledger/production/.membersrvc/tlsca.priv&quot;</code></pre><p>To specify to the Membership Services (TLS) Certificate Authority (TLSCA) what X.509 v3 Certificate (with a corresponding Private Key) to use:</p>
+<ul>
+<li>Modify <code>$GOPATH/src/github.com/hyperledger/fabric/peer/core.yaml</code> as follows:</li>
+</ul>
+<pre class="prettyprint source"><code>   peer:
+      pki:
+          tls:
+             enabled: true
+             rootcert:
+                 file: &quot;/var/hyperledger/production/.membersrvc/tlsca.cert&quot;</code></pre><p>To configure the peer to connect to the Membership Services server over TLS (otherwise, the connection will fail).</p>
+<ul>
+<li><p>Bootstrap your Membership Services and the peer. This is needed in order to have the file <em>tlsca.cert</em> generated by the member services.</p>
+</li>
+<li><p>Copy <code>/var/hyperledger/production/.membersrvc/tlsca.cert</code> to <code>$GOPATH/src/github.com/hyperledger/fabric-sdk-node</code>.</p>
+</li>
+</ul>
+<p><em>Note:</em> If you cleanup the folder <code>/var/hyperledger/production</code> then don't forget to copy again the <em>tlsca.cert</em> file as described above.</p>
+<h3>Troubleshooting</h3><p>If you see errors stating that the client has already been registered/enrolled, keep in mind that you can perform the enrollment process only once, as the enrollmentSecret is a one-time-use password. You will see these errors if you have performed a user registration/enrollment and subsequently deleted the cryptographic tokens stored on the client side. The next time you try to enroll, errors similar to the ones below will be seen.</p>
+<pre class="prettyprint source"><code>   Error: identity or token do not match</code></pre><pre class="prettyprint source"><code>   Error: user is already registered</code></pre><p>To address this, remove any stored cryptographic material from the CA server by following the instructions <a href="https://github.com/hyperledger/fabric/blob/master/docs/Setup/Chaincode-setup.md#removing-temporary-files-when-security-is-enabled">here</a>. You will also need to remove any of the cryptographic tokens stored on the client side by deleting the KeyValStore directory. That directory is configurable and is set to <code>/tmp/keyValStore</code> within the unit tests.</p>
+</article>
+
+</section>
+
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	
+
+</div>
+</div>
+
+
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+
+
+<footer>
+
+
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
+	
+		on 2017-03-19T21:26:42+08:00
+	
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+</footer>
+
+<script src="scripts/docstrap.lib.js"></script>
+<script src="scripts/toc.js"></script>
+
+    <script type="text/javascript" src="scripts/fulltext-search-ui.js"></script>
+
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+		exampleText = example.html();
+		var lang = /{@lang (.*?)}/.exec( exampleText );
+		if ( lang && lang[1] ) {
+			exampleText = exampleText.replace( lang[0], "" );
+			example.html( exampleText );
+			lang = lang[1];
+		} else {
+			var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+			lang = langClassMatch ? langClassMatch[1] : "javascript";
+		}
+
+		if ( lang ) {
+
+			$this
+			.addClass( "sunlight-highlight-" + lang )
+			.addClass( "linenums" )
+			.html( example.html() );
+
+		}
+	} );
+
+	Sunlight.highlightAll( {
+		lineNumbers : false,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+
+
+<!--Google Analytics-->
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            SearcherDisplay.init();
+        });
+    </script>
+
+
+</body>
+</html>
