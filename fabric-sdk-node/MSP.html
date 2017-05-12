@@ -4,7 +4,7 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width">
-	<title>Hyperledger Fabric SDK for node.js Class: Remote</title>
+	<title>Hyperledger Fabric SDK for node.js Class: MSP</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -86,16 +86,19 @@
 		<div id="main">
 			
 
-	<h1 class="page-title">Class: Remote</h1>
+	<h1 class="page-title">Class: MSP</h1>
 <section>
 
 <header>
     
         <h2>
-        Remote
+        MSP
         </h2>
         
-            <div class="class-description">The Remote class represents a the base class for all remote nodes, Peer, Orderer , and MemberServicespeer.</div>
+            <div class="class-description">MSP is the minimal Membership Service Provider Interface to be implemented
+to manage identities (in terms of signing and signature verification) represented
+by private keys and certificates generated from different algorithms (ECDSA, RSA, etc)
+and PKIs (software-managed or HSM based)</div>
         
     
 </header>
@@ -107,7 +110,7 @@
         
 <hr>
 <dt>
-    <h4 class="name" id="Remote"><span class="type-signature"></span>new Remote(url, opts)</h4>
+    <h4 class="name" id="MSP"><span class="type-signature"></span>new MSP(config)</h4>
     
     
 </dt>
@@ -115,7 +118,7 @@
 
     
     <div class="description">
-        Constructs an object with the endpoint configuration settings.
+        Setup the MSP instance according to configuration information
     </div>
     
 
@@ -150,13 +153,13 @@
 
         <tr>
             
-                <td class="name"><code>url</code></td>
+                <td class="name"><code>config</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">string</span>
+<span class="param-type">Object</span>
 
 
 
@@ -167,39 +170,17 @@
 
             
 
-            <td class="description last">The orderer URL with format of 'grpc(s)://host:port'.</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>opts</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">An Object that may contain options to pass to grpcs calls
-<br>- pem {string} The certificate file, in PEM format,
-   to use with the gRPC protocol (that is, with TransportCredentials).
-   Required when using the grpcs protocol.
-<br>- ssl-target-name-override {string} Used in test environment only, when the server certificate's
-   hostname (in the 'CN' field) does not match the actual host endpoint that the server process runs
-   at, the application can work around the client TLS verify failure by setting this property to the
-   value of the server certificate's hostname
-<br>- any other standard grpc call options will be passed to the grpc service calls directly</td>
+            <td class="description last">A configuration object specific to the implementation. For this
+implementation it uses the following fields:
+		<br>`rootCerts`: array of <a href="global.html#Identity">Identity</a> representing trust anchors for validating
+          signing certificates. Required for MSPs used in verifying signatures
+		<br>`intermediateCerts`: array of <a href="global.html#Identity">Identity</a> representing trust anchors for validating
+          signing certificates. optional for MSPs used in verifying signatures
+		<br>`admins`: array of <a href="global.html#Identity">Identity</a> representing admin privileges
+		<br>`signer`: SigningIdentity signing identity. Required for MSPs used in signing
+		<br>`id`: {string} value for the identifier of this instance
+		<br>`orgs`: {string} array of organizational unit identifiers
+		<br>`cryptoSuite': the underlying <a href="module-api.CryptoSuite.html">module:api.CryptoSuite</a> for crypto primitive operations</td>
         </tr>
 
     
@@ -285,7 +266,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="getUrl"><span class="type-signature"></span>getUrl()</h4>
+    <h4 class="name" id="deserializeIdentity"><span class="type-signature"></span>deserializeIdentity(serializedIdentity, storeKey)</h4>
     
     
 </dt>
@@ -293,7 +274,186 @@
 
     
     <div class="description">
-        Get the URL of the orderer.
+        DeserializeIdentity deserializes an identity
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>serializedIdentity</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">A protobuf-based serialization of an object with
+	      two fields: mspid and idBytes for certificate PEM bytes</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>storeKey</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">if the user should be stored in the key store. Only when
+       false will a promise not be returned</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    Promise for an <a href="global.html#Identity">Identity</a> instance or
+          or the Identity object itself if "storeKey" argument is false
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getDefaultSigningIdentity"><span class="type-signature"></span>getDefaultSigningIdentity()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns the default signing identity
     </div>
     
 
@@ -358,10 +518,6 @@
     <h5>Returns:</h5>
     
             
-<div class="param-desc">
-    Get the URL associated with the Orderer.
-</div>
-
 
 
 <dl>
@@ -370,7 +526,7 @@
     </dt>
     <dd>
         
-<span class="param-type">string</span>
+<span class="param-type">SigningIdentity</span>
 
 
 
@@ -387,7 +543,7 @@
             
 <hr>
 <dt>
-    <h4 class="name" id="toString"><span class="type-signature"></span>toString()</h4>
+    <h4 class="name" id="getId"><span class="type-signature"></span>getId()</h4>
     
     
 </dt>
@@ -395,7 +551,7 @@
 
     
     <div class="description">
-        return a printable representation of this object
+        Get provider identifier
     </div>
     
 
@@ -457,6 +613,518 @@
     
 
     
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getOrganizationUnits"><span class="type-signature"></span>getOrganizationUnits()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Get organizational unit identifiers
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Array.&lt;string></span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getPolicy"><span class="type-signature"></span>getPolicy()</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Obtain the policy to govern changes
+    </div>
+    
+
+    
+
+    
+
+    
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Object</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="getSigningIdentity"><span class="type-signature"></span>getSigningIdentity(identifier)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Returns a signing identity corresponding to the provided identifier
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>identifier</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">The identifier of the requested identity object</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">SigningIdentity</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="validate"><span class="type-signature"></span>validate(id)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Checks whether the supplied identity is valid
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#Identity">Identity</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -511,7 +1179,7 @@
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-05-12T07:26:40+00:00
+		on 2017-05-12T07:26:39+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>

@@ -40,7 +40,7 @@
 			<li class="dropdown">
 				<a href="classes.list.html" class="dropdown-toggle" data-toggle="dropdown">Classes<b class="caret"></b></a>
 				<ul class="dropdown-menu ">
-					<li><a href="Chain.html">Chain</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
+					<li><a href="Block.html">Block</a></li><li><a href="Chain.html">Chain</a></li><li><a href="Client.html">Client</a></li><li><a href="CouchDBKeyValueStore.html">CouchDBKeyValueStore</a></li><li><a href="CryptoKeyStore.html">CryptoKeyStore</a></li><li><a href="CryptoSuite_ECDSA_AES.html">CryptoSuite_ECDSA_AES</a></li><li><a href="CryptoSuite_PKCS11.html">CryptoSuite_PKCS11</a></li><li><a href="EndorsementPolicy.html">EndorsementPolicy</a></li><li><a href="EventHub.html">EventHub</a></li><li><a href="FabricCAClient.html">FabricCAClient</a></li><li><a href="FabricCAServices.html">FabricCAServices</a></li><li><a href="FileKeyValueStore.html">FileKeyValueStore</a></li><li><a href="module-api.CryptoSuite.html">api.CryptoSuite</a></li><li><a href="module-api.Key.html">api.Key</a></li><li><a href="module-api.KeyValueStore.html">api.KeyValueStore</a></li><li><a href="MSP.html">MSP</a></li><li><a href="Orderer.html">Orderer</a></li><li><a href="Peer.html">Peer</a></li><li><a href="Remote.html">Remote</a></li><li><a href="User.html">User</a></li>
 				</ul>
 			</li>
 			
@@ -285,6 +285,183 @@ such as submitting User etc.</td>
         <h3 class="subsection-title">Methods</h3>
 
         <dl>
+            
+<hr>
+<dt>
+    <h4 class="name" id=".buildTransactionID"><span class="type-signature">&lt;static> </span>buildTransactionID(nonce, userContext)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Utility method to build an unique transaction id
+based on a nonce and this chain's user.
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>nonce</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">a one time use number</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>userContext</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="User.html">User</a></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">the user context</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    An unique string
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">string</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
+        
             
 <hr>
 <dt>
@@ -605,7 +782,7 @@ TLC certificate, and enrollment certificate.</td>
             
 <hr>
 <dt>
-    <h4 class="name" id="buildTransactionID"><span class="type-signature"></span>buildTransactionID(nonce, userContext)</h4>
+    <h4 class="name" id="compareProposalResponseResults"><span class="type-signature"></span>compareProposalResponseResults(The)</h4>
     
     
 </dt>
@@ -613,8 +790,10 @@ TLC certificate, and enrollment certificate.</td>
 
     
     <div class="description">
-        Utility method to build an unique transaction id
-based on a nonce and this chain's user.
+        Utility method to examine a set of proposals to check they contain
+the same endorsement result write sets.
+This will validate that the endorsing peers all agree on the result
+of the chaincode execution.
     </div>
     
 
@@ -649,13 +828,13 @@ based on a nonce and this chain's user.
 
         <tr>
             
-                <td class="name"><code>nonce</code></td>
+                <td class="name"><code>The</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">int</span>
+<span class="param-type">Array.&lt;ProposalResponse></span>
 
 
 
@@ -666,31 +845,7 @@ based on a nonce and this chain's user.
 
             
 
-            <td class="description last">a one time use number</td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>userContext</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="User.html">User</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">the user context</td>
+            <td class="description last">proposal responses from all endorsing peers</td>
         </tr>
 
     
@@ -734,159 +889,12 @@ based on a nonce and this chain's user.
 	
 
 	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    An unique string
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">string</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="buildTransactionID_getUserContext"><span class="type-signature"></span>buildTransactionID_getUserContext(nonce)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Utility method to build an unique transaction id
-based on a nonce and this chain's user.
-Gets the user context.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>nonce</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">int</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">a one time use number</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/peer/proposal_reponse.proto</li>
+			</ul>
+	</dd>
 	
 
 	
@@ -908,164 +916,7 @@ Gets the user context.
     
             
 <div class="param-desc">
-    A promise for the transaction id
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="createChannel"><span class="type-signature"></span>createChannel(request)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Calls the orderer(s) to start building the new chain.
-Only one of the application instances needs to call this method.
-Once the chain is successfully created, this and other application
-instances only need to call joinChannel() to participate on the channel.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>request</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">An object containing the following field:
-		<br>`envelope` : required - byte[] of the envelope object containing
-                         all required settings to initialize this channel</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    Whether the chain initialization process was successful.
+    True when all proposals compare equally, false otherwise.
 </div>
 
 
@@ -1867,7 +1718,7 @@ on the list will be used.
             
 <hr>
 <dt>
-    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize()</h4>
+    <h4 class="name" id="initialize"><span class="type-signature"></span>initialize(config)</h4>
     
     
 </dt>
@@ -1875,9 +1726,9 @@ on the list will be used.
 
     
     <div class="description">
-        Retrieve the configuration from the primary orderer and initialize this chain (channel)
-with those values. Currently only the MSP config value of the channel is loaded
-into this chain.
+        Retrieve the configuration from the primary orderer and initializes this chain (channel)
+with those values. Optionally a configuration may be passed in to initialize this channel
+without making the call to the orderer.
     </div>
     
 
@@ -1887,83 +1738,55 @@ into this chain.
 
     
     
+        <h5>Parameters:</h5>
+        
 
-    
-<dl class="details">
-    
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
 
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dd>
+        <th>Type</th>
 
         
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<hr>
-<dt>
-    <h4 class="name" id="isDevMode"><span class="type-signature"></span>isDevMode()</h4>
-    
-    
-</dt>
-<dd>
+                <td class="name"><code>config</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;byte></span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">Optional - A serialized form of the protobuf configuration update envelope</td>
+        </tr>
 
     
-    <div class="description">
-        Determine if dev mode is enabled.
-    </div>
-    
+    </tbody>
+</table>
 
-    
-
-    
-
-    
     
 
     
@@ -2017,6 +1840,17 @@ into this chain.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    a Promise that will resolve when the action is complete
+</div>
+
+
+
+
+        
 
     
 </dd>
@@ -2916,159 +2750,6 @@ these results
             
 <hr>
 <dt>
-    <h4 class="name" id="queryChannels"><span class="type-signature"></span>queryChannels(peer)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Queries the names of all the channels that a
-peer has joined.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>peer</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    ChannelQueryResponse proto
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="queryInfo"><span class="type-signature"></span>queryInfo()</h4>
     
     
@@ -3146,160 +2827,6 @@ This query will be made to the primary peer.
             
 <div class="param-desc">
     With height, currently the only useful info.
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
-    <h4 class="name" id="queryInstalledChaincodes"><span class="type-signature"></span>queryInstalledChaincodes(peer)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Queries the installed chaincodes on a peer
-returning the details of all chaincodes
-installed on a peer.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>peer</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><a href="Peer.html">Peer</a></span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    ChaincodeQueryResponse proto
 </div>
 
 
@@ -3838,180 +3365,6 @@ This query will be made to the primary peer.
             
 <hr>
 <dt>
-    <h4 class="name" id="sendInstallProposal"><span class="type-signature"></span>sendInstallProposal(request)</h4>
-    
-    
-</dt>
-<dd>
-
-    
-    <div class="description">
-        Sends an install proposal to one or more endorsing peers.
-    </div>
-    
-
-    
-
-    
-
-    
-    
-        <h5>Parameters:</h5>
-        
-
-<table class="params table table-striped">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>request</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">Object</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">An object containing the following fields:
-		<br>`chaincodePath` : required - String of the path to location of
-                           the source code of the chaincode
-		<br>`chaincodeId` : required - String of the name of the chaincode
-		<br>`chaincodeVersion` : required - String of the version of the chaincode
-		<br>`chaincodePackage` : optional - Byte array of the archive content for
-                              the chaincode source. The archive must have a 'src'
-                              folder containing subfolders corresponding to the
-                              'chaincodePath' field. For instance, if the chaincodePath
-                              is 'mycompany/myproject', then the archive must contain a
-                              folder at the path 'src/mycompany/myproject', where the
-                              GO source code resides.
-		<br>`chaincodeType` : optional - Type of chaincode ['golang', 'car', 'java']
-                  (default 'golang')
-		<br>`txId` : required - String of the transaction id
-		<br>`nonce` : required - Integer of the once time number</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-    
-
-    
-<dl class="details">
-    
-
-	
-
-	
-
-	
-
-    
-
-    
-
-    
-
-    
-
-	
-
-	
-
-	
-
-	
-
-	
-
-
-
-	
-
-	
-
-	
-	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
-	<dd class="tag-see">
-		<ul>
-			<li>/protos/peer/proposal_response.proto</li>
-			</ul>
-	</dd>
-	
-
-	
-</dl>
-
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <h5>Returns:</h5>
-    
-            
-<div class="param-desc">
-    A Promise for a `ProposalResponse`
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Promise</span>
-
-
-
-    </dd>
-</dl>
-
-
-        
-
-    
-</dd>
-
-        
-            
-<hr>
-<dt>
     <h4 class="name" id="sendInstantiateProposal"><span class="type-signature"></span>sendInstantiateProposal(request)</h4>
     
     
@@ -4073,6 +3426,9 @@ This query will be made to the primary peer.
             
 
             <td class="description last">An object containing the following fields:
+		<br>`targets` : Optional : An array of endorsing <a href="Peer.html">Peer</a> objects as the
+                     targets of the request. The list of endorsing peers will be used if
+                     this parameter is omitted.
 		<br>`chaincodeType` : optional -- Type of chaincode ['golang', 'car', 'java']
                            (default 'golang')
 		<br>`chaincodePath` : required - String of the path to location of
@@ -4085,7 +3441,11 @@ This query will be made to the primary peer.
 		<br>`fcn` : optional - String of the function to be called on
                  the chaincode once instantiated (default 'init')
 		<br>`args` : optional - String Array arguments specific to
-                  the chaincode being instantiated</td>
+                  the chaincode being instantiated
+		<br>`endorsement-policy` : optional - <a href="EndorsementPolicy.html">EndorsementPolicy</a> object for this
+				chaincode. If not specified, a default policy of "a signature by any member
+				from any of the organizations corresponding to the array of member service
+				providers" is used</td>
         </tr>
 
     
@@ -4176,6 +3536,38 @@ This query will be made to the primary peer.
 
 
         
+
+    
+        <h5>Examples</h5>
+        
+        <p class="code-caption">"Signed by any member from one of the organizations"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  identities: [
+    { role: { name: &quot;member&quot;, mspId: &quot;org1&quot; }},
+    { role: { name: &quot;member&quot;, mspId: &quot;org2&quot; }}
+  ],
+  policy: {
+    &quot;1-of&quot;: [{ &quot;signed-by&quot;: 0 }, { &quot;signed-by&quot;: 1 }]
+  }
+}</pre>
+
+        <p class="code-caption">"Signed by admin of the ordererOrg and any member from one of the peer organizations"</p>
+    
+    <pre class="sunlight-highlight-javascript">{
+  identities: [
+    { role: { name: &quot;member&quot;, mspId: &quot;peerOrg1&quot; }},
+    { role: { name: &quot;member&quot;, mspId: &quot;peerOrg2&quot; }},
+    { role: { name: &quot;admin&quot;, mspId: &quot;ordererOrg&quot; }}
+  ],
+  policy: {
+    &quot;2-of&quot;: [
+      { &quot;signed-by&quot;: 2},
+      { &quot;1-of&quot;: [{ &quot;signed-by&quot;: 0 }, { &quot;signed-by&quot;: 1 }]}
+    ]
+  }
+}</pre>
+
 
     
 </dd>
@@ -4436,7 +3828,10 @@ with the original proposal request sent to the endorser.
 
             
 
-            <td class="description last"><br>`chaincodeId` : The id of the chaincode to perform the transaction proposal
+            <td class="description last"><br>`targets` : optional -- The peers that will receive this request,
+		              when not provided the peers assigned to this channel will
+		              be used.
+		<br>`chaincodeId` : The id of the chaincode to perform the transaction proposal
 		<br>`chainId` : required - String of the name of the chain
 		<br>`txId` : required - String of the transaction id
 		<br>`nonce` : required - Integer of the once time number
@@ -4532,7 +3927,7 @@ with the original proposal request sent to the endorser.
             
 <hr>
 <dt>
-    <h4 class="name" id="setDevMode"><span class="type-signature"></span>setDevMode()</h4>
+    <h4 class="name" id="sendUpgradeProposal"><span class="type-signature"></span>sendUpgradeProposal(request)</h4>
     
     
 </dt>
@@ -4540,7 +3935,7 @@ with the original proposal request sent to the endorser.
 
     
     <div class="description">
-        Set dev mode to true or false.
+        Sends an upgrade proposal to one or more endorsing peers.
     </div>
     
 
@@ -4549,6 +3944,71 @@ with the original proposal request sent to the endorser.
     
 
     
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>request</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Object</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">An object containing the following fields:
+		<br>`targets` : An array of endorsing <a href="Peer.html">Peer</a> objects as the
+                     targets of the request
+		<br>`chaincodeType` : optional -- Type of chaincode ['golang', 'car', 'java']
+                           (default 'golang')
+		<br>`chaincodePath` : required - String of the path to location of
+                           the source code of the chaincode
+		<br>`chaincodeId` : required - String of the name of the chaincode
+		<br>`chaincodeVersion` : required - String of the version of the chaincode
+		<br>`chainId` : required - String of the name of the chain
+		<br>`txId` : required - String of the transaction id
+		<br>`nonce` : required - Integer of the once time number
+		<br>`fcn` : optional - String of the function to be called on
+                 the chaincode once instantiated (default 'init')
+		<br>`args` : optional - String Array arguments specific to
+                  the chaincode being instantiated</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
     
 
     
@@ -4586,6 +4046,13 @@ with the original proposal request sent to the endorser.
 	
 
 	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/peer/proposal_response.proto</li>
+			</ul>
+	</dd>
+	
 
 	
 </dl>
@@ -4602,6 +4069,30 @@ with the original proposal request sent to the endorser.
     
 
     
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    A Promise for a `ProposalResponse`
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">Promise</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
 
     
 </dd>
@@ -5220,6 +4711,175 @@ certificate information upon certificate renewals.
     
 </dd>
 
+        
+            
+<hr>
+<dt>
+    <h4 class="name" id="verifyProposalResponse"><span class="type-signature"></span>verifyProposalResponse(The)</h4>
+    
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        Utility method to verify a single proposal response.
+Requires that the initialize method of this channel has been
+executed to load this channel's MSPs. The MSPs will have the
+trusted root certificates for this channel.
+The verifications performed are
+  - validate that the proposal endorsement's signer is trusted
+  - verify that the endorsement signature matches the signer's
+    claimed identity
+    </div>
+    
+
+    
+
+    
+
+    
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params table table-striped">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>The</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ProposalResponse</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">endorsement response from the peer,
+        includes the endorser certificate and signature over the
+        proposal, endorsement result and endorser certificate.</td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+    
+
+    
+<dl class="details">
+    
+
+	
+
+	
+
+	
+
+    
+
+    
+
+    
+
+    
+
+	
+
+	
+
+	
+
+	
+
+	
+
+
+
+	
+
+	
+
+	
+	<dt class="tag-see method-doc-label method-doc-details-label">See:</dt>
+	<dd class="tag-see">
+		<ul>
+			<li>/protos/peer/proposal_reponse.proto</li>
+			</ul>
+	</dd>
+	
+
+	
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    a boolean value of true when both the identity and
+         the signature are valid, false otherwise.
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+
+    </dd>
+</dl>
+
+
+        
+
+    
+</dd>
+
         </dl>
     
 
@@ -5270,7 +4930,7 @@ certificate information upon certificate renewals.
 <span class="jsdoc-message">
 	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.4.3</a>
 	
-		on 2017-03-19T21:26:41+08:00
+		on 2017-05-12T07:26:39+00:00
 	
 	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
 </span>
